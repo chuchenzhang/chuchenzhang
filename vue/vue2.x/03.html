@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>计算属性</title>
+		<script src="../js/vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+           <!-- {{start}} {{message}} {{end}} -->
+
+           <!-- 调用方法 -->
+           {{welcomeFun()}} {{welcomeFun()}} {{welcomeFun()}}
+
+        </br>
+
+           <!-- 调用计算属性 -->
+           {{welcome}} {{welcome}} {{welcome}}
+           
+		</div>
+		<script type="text/javascript">
+			Vue.config.productionTip = false;	//禁用警告
+	
+			//数据对象
+			const dataObj = {
+                start: '[',
+				message: 'hello,vue!',
+                end: ']',
+			}
+	
+			//数据冻结，将变量该给只读数据，无法通过控制台修改
+			// Object.freeze(dataObj)
+	
+			const app = new Vue({
+				el: '#app',
+				data: dataObj,
+	
+				//方法
+				methods: {
+                    welcomeFun(){
+                        console.log('执行次数' + Math.random());
+                        return this.start + this.message + this.end;
+                    }
+				},
+
+                //计算属性
+                //计算属性具有缓存，当值没有改变时，不会重新执行方法，而是去调用缓存
+                computed: {
+                    // welcome(){
+                    //     console.log('执行次数');
+                    //     return this.start + this.message + this.end;
+                    // }
+                    
+                    //一般方法有getter(取值)和setter(赋值)两种，计算属性默认只有getter
+                    //可以利用下面的方法让计算属性拥有setter功能
+                    welcome : {
+                        get(){
+                            console.log('执行次数');
+                            return this.start + this.message + this.end;
+                        },
+
+                        set(value){
+                            console.log(value)
+                            this.start = value.split(',')[0];
+                            this.end = value.split(',')[1];
+                        }
+
+                    }
+                },
+
+
+			});
+		</script>
+	</body>
+
+</html>

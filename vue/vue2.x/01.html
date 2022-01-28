@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>定义选项对象</title>
+		<!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script> -->
+		<script type="text/javascript" src="../js/vue.js"></script>
+	</head>
+	<body>
+		<div id="app">{{message}}
+			<button v-on:click="alert">CLICK</button>
+		</div>
+		<script type="text/javascript">
+			Vue.config.productionTip = false;	//禁用警告
+	
+			//数据对象
+			const dataObj = {
+				message : 'hello,vue!'
+			}
+	
+			//数据冻结，将变量该给只读数据，无法通过控制台修改
+			// Object.freeze(dataObj)
+	
+			const app = new Vue({
+				el: '#app',
+				data: dataObj,
+	
+				//方法
+				methods: {
+					alert: function(){
+						alert('click')
+					}
+				},
+	
+				created: function(){
+					console.log('初始化后执行：' + this.message);
+				},
+				updated: function(){
+					console.log('修改后执行：' + this.message);
+				}
+	
+	
+	
+			});
+		</script>
+	</body>
+
+</html>

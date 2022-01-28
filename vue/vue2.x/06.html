@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>循环列表渲染</title>
+		<script src="../js/vue.js"></script>
+
+	</head>
+	<body>
+		<div id="app">
+
+			<ul>
+				<li v-for="item in array">{{item.city}}</li>
+			</ul>
+
+			<ul>
+				<li v-for="(item,index) in array">{{index}}.{{item.city}}</li>
+			</ul>
+			
+			<ul>
+				<li v-for="(value,name,key) in object">{{key}}-{{name}}-{{value}}</li>
+			</ul>
+
+			<ul>
+				<template v-for="item in array">
+					<li>{{item.city}}</li>
+					<li>-----</li>
+				</template>
+			</ul>
+
+			<div v-for="n in 10">{{n}}</div>
+
+			<!-- 在循环中，可能需要过滤某些数据，需要使用v-if；-->
+            <ul>
+                <!-- <li v-for="item in array" v-if="flag">{{item.city}}</li> -->
+                <br>
+                <li v-for="item in array" v-if="item.city !== '上海'">{{item.city}}</li>
+            </ul>
+            <!-- PS：避免v-for和v-if在同一节点使用，由于v-for优先级高于v-if，意味着每次循环都要重复执行一遍； -->
+            <!-- 为了避免渲染被应该被隐藏的列表，我们把v-if放在v-for的外层 -->
+            <ul>
+                <template v-if="flag">
+                    <li v-for="item in array">{{item.city}}</li>
+                </template>
+            </ul>
+
+			<ul>
+                <li>计算属性</li>
+                <li v-for="item in arrayCity">{{item.city}}</li>
+            </ul>
+
+		</div>
+
+		<script type="text/javascript">
+			Vue.config.productionTip = false;	//禁用警告
+			
+			//数据对象
+			const dataObj = {
+				message : 'hello,vue!',
+                flag  : true,
+				array : [
+					{
+						city : '北京',
+					},
+					{
+						city : '上海',
+					},
+					{
+						city : '深圳',
+					},
+				],
+				object : {
+					name : 'chuchen',
+					age  : '22',
+					gender : 'male',
+				}
+			}
+
+			const app = new Vue({
+				el: '#app',
+				data: dataObj,
+
+				//计算属性，固定名称
+				computed : {
+                    arrayCity(){
+                        //splice()函数从数组中指定位置添加/删除元素
+                        this.array.splice(1,1); //在array数组索引为1的位置，删除1个数据
+                        return this.array;
+                    }
+				},
+				//方法
+				methods: {
+
+				},
+			});
+		</script>
+	</body>
+
+</html>

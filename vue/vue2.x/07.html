@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>数组检测和key</title>
+		<!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script> -->
+		<script type="text/javascript" src="../js/vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+            <button v-on:click="add">添加</button>
+            <ul>
+                <li v-for="item in array" v-bind:key="item.id">
+                    <input type="checkbox">
+                    {{item.city}}
+                </li>
+            </ul>
+            
+		</div>
+		<script type="text/javascript">
+			Vue.config.productionTip = false;	//禁用警告
+	
+            //vue变异方法 即时响应
+            // push()
+            // pop()
+            // shift()
+            // unshift()
+            // splice()
+            // sort()
+            // reverse()
+
+
+			//数据对象
+			const dataObj = {
+				message : 'hello,vue!',
+                flag  : true,
+				array : [
+					{
+                        id   : 1,
+						city : '北京',
+					},
+					{
+                        id   : 2,
+						city : '上海',
+					},
+					{
+                        id   : 3,
+						city : '深圳',
+					},
+				],
+                object : {
+					name : 'chuchen',
+					age  : '22',
+					gender : 'male',
+				}
+			}
+
+	
+			const app = new Vue({
+				el: '#app',
+				data: dataObj,
+	
+				//方法
+				methods: {
+                    add(){
+                        this.array.unshift({
+                            id : 4,
+                            city : '重庆',
+                        })
+                    }
+				},
+
+			});
+
+            // app.array.push({city : '重庆'});
+
+		</script>
+	</body>
+
+</html>

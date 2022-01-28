@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>css和style绑定</title>
+		<script src="../js/vue.js"></script>
+
+        <style>
+            .static{
+                color: red;
+            }
+            .active{
+                color: blue;
+            }
+            .bold{
+                font-weight: 800;
+            }
+        </style>
+
+	</head>
+	<body>
+		<div id="app">
+
+            <div class="static" v-bind:class="{active : isActive, bold : isBold}">
+                {{message}}
+            </div>
+            <div class="static" v-bind:class="isClass">
+                {{message}}
+            </div>
+            <!-- 数组方法 -->
+            <div class="static" v-bind:class="[active, bold]">
+                {{message}}
+            </div>
+            <!-- 计算属性 -->
+            <div class="static" v-bind:class="classObject">
+                {{message}}
+            </div>
+            
+		</div>
+
+		<script type="text/javascript">
+			Vue.config.productionTip = false;	//禁用警告
+	
+			//数据对象
+			const dataObj = {
+				message : 'hello,vue!',
+				isActive: true,
+				isBold  : true,
+				isClass : {
+                    active: true,
+                    bold  : false,
+                },
+                active: 'active',
+                bold  : 'bold',
+			}
+	
+			const app = new Vue({
+				el: '#app',
+				data: dataObj,
+
+                //计算属性，固定名称
+                computed : {
+                    classObject(){
+                        //...
+                        return {
+                            active : true,
+                            bold   : false,
+                        }
+                    }
+                },
+	
+				//方法
+				methods: {
+
+				},
+			});
+		</script>
+	</body>
+
+</html>
